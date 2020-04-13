@@ -5,7 +5,9 @@
     <string name="buttonBuy">Buy Books</string>
     <string name="buttonSell">Sell Books</string>
     <string name="buttonSubmit">Submit for Review</string>
-    <string name="previous">Previous</string>
+    <string name="sortBy">Sort By:</string>
+    <string name="classCode">Class Code (XX)</string>
+    <string name="title">Title of Book</string>
     <string-array name="locationSpinner">
         <item>Upper Campus</item>
         <item>Lower Campus</item>
