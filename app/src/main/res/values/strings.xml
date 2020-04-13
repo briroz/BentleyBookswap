@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Bentley Bookswap</string>
+    <string name="title_activity_add_item_activity">add_item_activity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="buttonBuy">Buy Books</string>
+    <string name="buttonSell">Sell Books</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>
