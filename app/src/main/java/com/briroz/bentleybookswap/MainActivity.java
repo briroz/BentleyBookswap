@@ -23,6 +23,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         Intent i = new Intent(getApplicationContext(),SellBookActivity.class);
         startActivity(i);
-        //setContentView(R.layout.add_item_activity);
+        //setContentView(R.layout.add_item_activity);  // Opens content view
     }
 }
