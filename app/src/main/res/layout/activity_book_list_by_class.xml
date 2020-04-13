@@ -14,8 +14,8 @@
         android:layout_height="wrap_content"
         android:entries="@array/classCategories" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/bookList"
+    <ListView
+        android:id="@+id/classSortedBookList"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

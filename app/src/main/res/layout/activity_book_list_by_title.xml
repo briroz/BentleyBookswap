@@ -7,14 +7,17 @@
     android:orientation="vertical"
     tools:context=".BookListActivityByTitle">
 
-    <Spinner
-        android:id="@+id/spinnerClassCategory"
+    <EditText
+        android:id="@+id/editTextTitleSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:entries="@array/classCategories" />
+        android:ems="10"
+        android:hint="@string/title"
+        android:inputType="textPersonName" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/bookList"
+    <ListView
+        android:id="@+id/titleSortedBookList"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 </LinearLayout>
