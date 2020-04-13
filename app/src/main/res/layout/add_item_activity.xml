@@ -61,6 +61,19 @@
         </TableRow>
 
         <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal">
+
+            <Spinner
+                android:id="@+id/spinnerBookCategory"
+                android:layout_width="match_parent"
+                android:layout_height="40sp"
+                android:entries="@array/classCategories"
+                android:gravity="center_horizontal" />
+        </TableRow>
+
+        <TableRow
             android:id="@+id/rowISBN"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -70,10 +83,86 @@
                 android:id="@+id/editTextISBN"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:digits="13"
                 android:ems="10"
+                android:maxLength="13"
                 android:hint="ISBN:"
                 android:inputType="number" />
         </TableRow>
+
+        <TableRow
+            android:id="@+id/rowPrice"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal">
+
+
+            <EditText
+                android:id="@+id/editTextPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:maxLength="5"
+                android:hint="$0.00"
+                android:inputType="numberDecimal" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/rowPhone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal">
+
+            <EditText
+                android:id="@+id/editTextPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:maxLength="10"
+                android:hint="(888) 888-8888"
+                android:inputType="phone" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/rowEmail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal">
+
+            <EditText
+                android:id="@+id/editTextEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="falcons@bentley.edu"
+                android:inputType="textEmailAddress" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/rowLocationSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal">
+
+            <Spinner
+                android:id="@+id/spinnerLocation"
+                android:layout_width="match_parent"
+                android:layout_height="40sp"
+                android:entries="@array/locationSpinner" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/rowSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/buttonSubmit" />
+        </TableRow>
     </TableLayout>
+
 </LinearLayout>

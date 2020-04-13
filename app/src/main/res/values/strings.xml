@@ -4,8 +4,54 @@
     <!-- Strings used for fragments for navigation -->
     <string name="buttonBuy">Buy Books</string>
     <string name="buttonSell">Sell Books</string>
-    <string name="next">Next</string>
+    <string name="buttonSubmit">Submit for Review</string>
     <string name="previous">Previous</string>
+    <string-array name="locationSpinner">
+        <item>Upper Campus</item>
+        <item>Lower Campus</item>
+        <item>Student Center</item>
+        <item>Library</item>
+        <item>Off-Campus</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="classCategories">
+        <item>AC</item>
+        <item>AF</item>
+        <item>CDI</item>
+        <item>MLCH</item>
+        <item>CIN</item>
+        <item>COM</item>
+        <item>CS</item>
+        <item>EC</item>
+        <item>EMS</item>
+        <item>EXP</item>
+        <item>FI</item>
+        <item>FS</item>
+        <item>MLFR</item>
+        <item>GB</item>
+        <item>GLS</item>
+        <item>HI</item>
+        <item>IDCC</item>
+        <item>IT</item>
+        <item>IPM</item>
+        <item>ID</item>
+        <item>MLIT</item>
+        <item>MLJA</item>
+        <item>LA</item>
+        <item>LIT</item>
+        <item>MG</item>
+        <item>MK</item>
+        <item>MA</item>
+        <item>MC</item>
+        <item>NASC</item>
+        <item>NASE</item>
+        <item>PH</item>
+        <item>PRS</item>
+        <item>PS</item>
+        <item>SO</item>
+        <item>MLSP</item>
+        <item>Other</item>
+    </string-array>
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
