@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 // Created to allow connections from multiple activities
 public class ConnectionClass {
-    String ip = "frodo.bentley.edu";
+    String ip = "frodo.bentley.edu:3306/BrianR";
     String schema = "BrianR";
     String user = "harry";
     String pass = "harry";
@@ -22,8 +22,8 @@ public class ConnectionClass {
         String connURL = null;
         try {
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
-            connURL = "jdbc:jtds:sqlserver://" + ip + ";" + "databaseName=" + schema + ";user=" + user + ";password=" + pass + ";";
-            conn = DriverManager.getConnection(connURL);
+            connURL = "jdbc:jtds:sqlserver://" + ip + ";";
+            conn = DriverManager.getConnection(connURL, user, pass);
         } catch (SQLException se) {
             Log.e("TAG", se.getMessage());
         } catch (ClassNotFoundException e) {

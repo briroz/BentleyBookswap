@@ -5,9 +5,11 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -25,7 +27,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookListActivityByClass extends AppCompatActivity {
+public class BookListActivityByClass extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private Spinner classCategory;
     private ListView bookList;
@@ -39,15 +41,24 @@ public class BookListActivityByClass extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_list_by_class);
         classCategory = findViewById(R.id.spinnerClassCategory);
+        classCategory.setOnItemSelectedListener(this);
         bookList = findViewById(R.id.classSortedBookList);
 
         connectionClass = new ConnectionClass(); // Connection Class Initialization
         bookArraryList = new ArrayList<ListItemsClass>(); // Arraylist Initialization
 
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         // Calling Async Task
         SyncData orderData = new SyncData();
         orderData.execute("");
+    }
 
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+        // Do nothing until the user selects the class category
     }
 
     // Async Task Overrides 3 methods and displays a dialog while executing the SQL query.  Animation should be added to the dialog
@@ -63,7 +74,7 @@ public class BookListActivityByClass extends AppCompatActivity {
         }
 
         @Override
-        protected String doInBackground(String... strings)  {        // Connect to the db, write query and add items to arraylist
+        protected String doInBackground(String...strings )  {        // Connect to the db, write query and add items to arraylist
             String msg = "No error";
             try {
                 Connection conn = connectionClass.CONN(); //Connection Object
@@ -71,7 +82,7 @@ public class BookListActivityByClass extends AppCompatActivity {
                     success = false;
                 } else {
                     // Change below query according to your own database.
-                    String query = "SELECT itemKey, bookTitle, bookAuthor, isbn FROM saleItems";
+                    String query = "SELECT itemKey, bookTitle, bookAuthor, isbn FROM saleItems;";
                     // Prepared statement goes HERE
                     Statement stmt = conn.createStatement();
                     ResultSet rs = stmt.executeQuery(query);
@@ -83,25 +94,25 @@ public class BookListActivityByClass extends AppCompatActivity {
                                 ex.printStackTrace();
                             }
                         }
-                        msg = "Found";
+                        Log.d("TAG", "DATA FOUND");
                         success = true;
                     } else {
-                        msg = "No Data found!";
+                       Log.d("TAG", "No Data found!");
                         success = false;
                     }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                Writer writer = new StringWriter();  // consider removal
+                /* Writer writer = new StringWriter();  // consider removal
                 e.printStackTrace(new PrintWriter(writer));
-                msg = writer.toString();
+                msg = writer.toString();  */
                 success = false;
             }
             return msg;
         }
 
         @Override
-        protected void onPostExecute(String msg) {           // disimissing progress dialoge, showing error and setting up my listview
+        protected void onPostExecute(String msg) {           // dismissing progress dialog, showing error and setting up my listview
             progress.dismiss();
             Toast.makeText(BookListActivityByClass.this, msg + "", Toast.LENGTH_LONG).show();
             if (success == false) {
