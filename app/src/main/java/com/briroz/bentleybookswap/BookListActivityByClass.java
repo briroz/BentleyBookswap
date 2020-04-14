@@ -41,6 +41,9 @@ public class BookListActivityByClass extends AppCompatActivity {
         classCategory = findViewById(R.id.spinnerClassCategory);
         bookList = findViewById(R.id.classSortedBookList);
 
+        connectionClass = new ConnectionClass(); // Connection Class Initialization
+        bookArraryList = new ArrayList<ListItemsClass>(); // Arraylist Initialization
+
         // Calling Async Task
         SyncData orderData = new SyncData();
         orderData.execute("");
