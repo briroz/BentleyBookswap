@@ -3,9 +3,14 @@ package com.briroz.bentleybookswap;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
@@ -18,6 +23,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,6 +31,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class BookListActivityByClass extends AppCompatActivity implements AdapterView.OnItemSelectedListener, AdapterView.OnItemClickListener {
 
@@ -32,7 +40,7 @@ public class BookListActivityByClass extends AppCompatActivity implements Adapte
     private ListView bookListView;
     private SimpleAdapter simpleAdapter;
     private ProgressDialog loadingDiag;
-    private ArrayList<HashMap<String, String>> list;
+    private ArrayList<HashMap<String, String>> list= new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,18 +50,18 @@ public class BookListActivityByClass extends AppCompatActivity implements Adapte
         classCategory.setOnItemSelectedListener(this);   // Add listener to update entries when new item selected
         bookListView = findViewById(R.id.classSortedBookList); // Add book list object to view
 
-        getItems("");   // Start the JSON retrieval, loading ALL items
+        getItems("ALL BOOKS");   // Start the JSON retrieval, loading ALL items
     }
 
 
-    private void getItems(final String s) {
-        loadingDiag =  ProgressDialog.show(this,"Loading","please wait",false,true);
+    private void getItems(final String classCategory) {
+        loadingDiag =  ProgressDialog.show(this,"Loading","Please wait",false,true);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://script.google.com/macros/s/AKfycbwuldO356FmlWv7RJkxZcusSxomUQX_0oFdw6K8bog1q71mFqM_/exec?action=getItems",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        parseResponseItems(response, s);
+                        parseResponseItems(response, classCategory);
                     }
                 },
 
@@ -107,12 +115,15 @@ public class BookListActivityByClass extends AppCompatActivity implements Adapte
                 listingItem.put("bookTitle", bookTitle);
                 listingItem.put("bookAuthor", bookAuthor);
                 listingItem.put("isbn", isbn);
+                if (!price.contains("$")) {  // Add a dollar sign if there is not one already
+                    price = "$"+price;
+                }
                 listingItem.put("price", price);
                 listingItem.put("meetingPlace", meetingPlace);
                 listingItem.put("phone", phone);
                 listingItem.put("email", email);
                 listingItem.put("bookCategory", bookCategory);
-                if (classCategory.equals("")) {
+                if (classCategory.equals("") || classCategory.equals("ALL BOOKS")) {
                     // Load all of the items
                     list.add(listingItem);  // No filtering
                 } else {
@@ -122,17 +133,15 @@ public class BookListActivityByClass extends AppCompatActivity implements Adapte
                         // Do not add the item if the category does not match
                     }
                 }
-
-
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
 
-        simpleAdapter = new SimpleAdapter(this,list,R.layout.list_content, new String[]{"bookTitle","bookAuthor","bookCategory","itemKey"},new int[]{R.id.ListItemTitle,R.id.ListItemAuthor,R.id.ListItemCategory});
-        bookListView.setAdapter(simpleAdapter);
         loadingDiag.dismiss();
+        simpleAdapter = new SimpleAdapter(this,list,R.layout.list_content, new String[]{"bookTitle","bookAuthor","bookCategory","price", "isbn", "itemKey"},new int[]{R.id.ListItemTitle,R.id.ListItemAuthor,R.id.ListItemCategory, R.id.ListItemPrice});
+        bookListView.setAdapter(simpleAdapter);
 
     }
 
@@ -144,9 +153,10 @@ public class BookListActivityByClass extends AppCompatActivity implements Adapte
         try {
             if (list.size()>0) {
                 list.clear();
+            } else {
+                loadingDiag.dismiss();  // Kills persistent dialog on starting load, when list is null
             }
             getItems(classCategory.getSelectedItem().toString());
-        //    BookListActivityByClass.this.simpleAdapter.getFilter().filter(classCategory.getSelectedItem().toString());
         } catch (Exception e) {
             e.printStackTrace();
         }

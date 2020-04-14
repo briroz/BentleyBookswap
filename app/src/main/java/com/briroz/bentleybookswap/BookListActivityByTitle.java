@@ -5,12 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Spinner;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -28,35 +26,36 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-    public class BookListActivityByTitle extends AppCompatActivity implements AdapterView.OnItemSelectedListener, AdapterView.OnItemClickListener {
+    public class BookListActivityByTitle extends AppCompatActivity implements View.OnClickListener {
 
         private EditText bookTitleSearch;
         private Button bookSearchButton;
         private ListView bookListView;
         private SimpleAdapter simpleAdapter;
-        private ProgressDialog loadingDiag;
-        private ArrayList<HashMap<String, String>> list;
+        private ProgressDialog loadingDialog;
+        private ArrayList<HashMap<String, String>> list= new ArrayList<>();
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_book_list_by_class);  // Set activity view
+            setContentView(R.layout.activity_book_list_by_title);  // Set activity view
             bookTitleSearch = findViewById(R.id.editTextTitleSearch);  // Add Search box
-            classCategory.setOnItemSelectedListener(this);   // Add listener to update entries when new item selected
-            bookListView = findViewById(R.id.classSortedBookList); // Add book list object to view
+            bookListView = findViewById(R.id.titleSortedBookList); // Add book list object to view
+            bookSearchButton = findViewById(R.id.buttonSearchTitle);
+            bookSearchButton.setOnClickListener(this);
+            getItems("");   // Start the JSON retrieval, loading ALL items (empty string)
 
-            getItems("");   // Start the JSON retrieval, loading ALL items
         }
 
 
-        private void getItems(final String s) {
-            loadingDiag =  ProgressDialog.show(this,"Loading","please wait",false,true);
+        private void getItems(final String title) {
+            loadingDialog =  ProgressDialog.show(this,"Loading","Please wait",false,true);
 
             StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://script.google.com/macros/s/AKfycbwuldO356FmlWv7RJkxZcusSxomUQX_0oFdw6K8bog1q71mFqM_/exec?action=getItems",
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            parseResponseItems(response, s);
+                            parseResponseItems(response, title);
                         }
                     },
 
@@ -79,7 +78,7 @@ import java.util.HashMap;
         }
 
 
-        private void parseResponseItems(String jsonResponse, String classCategory) {
+        private void parseResponseItems(String jsonResponse, String title) {
 
             list = new ArrayList<>();
 
@@ -110,16 +109,19 @@ import java.util.HashMap;
                     listingItem.put("bookTitle", bookTitle);
                     listingItem.put("bookAuthor", bookAuthor);
                     listingItem.put("isbn", isbn);
+                    if (!price.contains("$")) {  // Add a dollar sign if there is not one already
+                        price = "$"+price;
+                    }
                     listingItem.put("price", price);
                     listingItem.put("meetingPlace", meetingPlace);
                     listingItem.put("phone", phone);
                     listingItem.put("email", email);
                     listingItem.put("bookCategory", bookCategory);
-                    if (classCategory.equals("")) {
+                    if (title.equals("")) {
                         // Load all of the items
                         list.add(listingItem);  // No filtering
                     } else {
-                        if (bookCategory.equals(classCategory)) {
+                        if (bookTitle.toLowerCase().contains(title.toLowerCase())) {    // Made both lowercase for comparison
                             list.add(listingItem);  // Add the item
                         } else {
                             // Do not add the item if the category does not match
@@ -132,58 +134,21 @@ import java.util.HashMap;
                 e.printStackTrace();
             }
 
-
-            simpleAdapter = new SimpleAdapter(this,list,R.layout.list_content, new String[]{"bookTitle","bookAuthor","bookCategory","itemKey"},new int[]{R.id.ListItemTitle,R.id.ListItemAuthor,R.id.ListItemCategory});
+            loadingDialog.dismiss();
+            simpleAdapter = new SimpleAdapter(this,list,R.layout.list_content, new String[]{"bookTitle","bookAuthor","bookCategory", "price", "itemKey"},new int[]{R.id.ListItemTitle,R.id.ListItemAuthor,R.id.ListItemCategory, R.id.ListItemPrice});
             bookListView.setAdapter(simpleAdapter);
-            loadingDiag.dismiss();
 
         }
 
-
-
-
         @Override
-        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        public void onClick(View view) {
             try {
                 if (list.size()>0) {
                     list.clear();
                 }
-                getItems(classCategory.getSelectedItem().toString());
-                //    BookListActivityByClass.this.simpleAdapter.getFilter().filter(classCategory.getSelectedItem().toString());
+                getItems(bookTitleSearch.getText().toString().trim());
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> adapterView) {
-
-        }
-
-        @Override
-        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-        }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_book_list_by_title);
-        bookList = findViewById(R.id.titleSortedBookList);
-        bookTitleSearch = findViewById(R.id.editTextTitleSearch);
-
-    }
-}

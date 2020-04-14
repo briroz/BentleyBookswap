@@ -29,6 +29,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="false"
             android:layout_marginTop="5sp"
+            android:layout_toRightOf="@id/imageView"
             android:gravity="center|left"
             android:textSize="18sp" />
 
@@ -38,7 +39,17 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/ListItemTitle"
             android:layout_alignParentEnd="false"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="60sp"
+            android:layout_toRightOf="@id/imageView"
             android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/ListItemPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ListItemTitle"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
 </RelativeLayout>

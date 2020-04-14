@@ -7,6 +7,7 @@ public class ListItemsClass {
     public String title; // Book Title
     public String isbn; // ISBN to be used for a Url for image to be displayed
     public String category; // Class code to be displayed
+    public String price;  // String to avoid special character conflict ($)
 
     public ListItemsClass(int k, String t, String a, String c, String i) {
         this.author = a;
@@ -34,5 +35,9 @@ public class ListItemsClass {
 
     public String getCategory() {
         return category;
+    }
+
+    public String getPrice() {
+        return price;
     }
 }
