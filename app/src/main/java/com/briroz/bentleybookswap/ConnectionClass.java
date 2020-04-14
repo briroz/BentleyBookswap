@@ -10,19 +10,17 @@ import java.sql.SQLException;
 // Created to allow connections from multiple activities
 public class ConnectionClass {
     String ip = "frodo.bentley.edu:3306/BrianR";
-    String schema = "BrianR";
     String user = "harry";
     String pass = "harry";
 
     public Connection CONN() {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                .permitAll().build();
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         Connection conn = null;
         String connURL = null;
         try {
-            Class.forName("net.sourceforge.jtds.jdbc.Driver");
-            connURL = "jdbc:jtds:sqlserver://" + ip + ";";
+            Class.forName("com.mysql.jdbc.Driver");
+            connURL = "jdbc:mysql://" + ip + "";
             conn = DriverManager.getConnection(connURL, user, pass);
         } catch (SQLException se) {
             Log.e("TAG", se.getMessage());

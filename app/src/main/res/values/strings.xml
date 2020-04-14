@@ -17,6 +17,7 @@
     <string name="phone">Phone: </string>
     <string name="email">Email: </string>
     <string name="meetingLocation">Meeting Place: </string>
+    <string name="buttonSearch">Go</string>
     <string-array name="locationSpinner">
         <item>Upper Campus</item>
         <item>Lower Campus</item>
@@ -26,6 +27,7 @@
         <item>Other</item>
     </string-array>
     <string-array name="classCategories">
+        <item>ALL BOOKS</item>
         <item>AC</item>
         <item>AF</item>
         <item>CDI</item>
