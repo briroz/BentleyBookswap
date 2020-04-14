@@ -1,7 +1,6 @@
 package com.briroz.bentleybookswap;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -16,7 +15,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.squareup.picasso.Picasso;
-
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -70,7 +68,7 @@ public class BookListActivityByClass extends AppCompatActivity {
                     success = false;
                 } else {
                     // Change below query according to your own database.
-                    String query = "SELECT itemKey, bookTitle, bookAuthor, isbn FROM saleItems WHERE bookCategory=?";
+                    String query = "SELECT itemKey, bookTitle, bookAuthor, isbn FROM saleItems";
                     // Prepared statement goes HERE
                     Statement stmt = conn.createStatement();
                     ResultSet rs = stmt.executeQuery(query);
@@ -100,31 +98,25 @@ public class BookListActivityByClass extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String msg) // disimissing progress dialoge, showing error and setting up my listview
-        {
+        protected void onPostExecute(String msg) {           // disimissing progress dialoge, showing error and setting up my listview
             progress.dismiss();
             Toast.makeText(BookListActivityByClass.this, msg + "", Toast.LENGTH_LONG).show();
-            if (success == false)
-            {
-            }
-            else {
+            if (success == false) {
+
+            } else {
                 try {
                     myBookListAdapter = new BookListAdapter(bookArraryList, BookListActivityByClass.this);
                     bookList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
                     bookList.setAdapter(myBookListAdapter);
-                } catch (Exception ex)
-                {
+                } catch (Exception ex) {
 
                 }
-
             }
         }
     }
 
-    public class BookListAdapter extends BaseAdapter         //has a class viewholder which holds
-    {
-        public class ViewHolder
-        {
+    public class BookListAdapter extends BaseAdapter {         //has a class viewholder which holds
+        public class ViewHolder {
             TextView ListViewTitle;
             TextView ListViewAuthor;
             ImageView imageView;
@@ -176,8 +168,7 @@ public class BookListActivityByClass extends AppCompatActivity {
             // here setting up names and images
             viewHolder.ListViewTitle.setText(bookItemsList.get(position).getTitle()+"");
             viewHolder.ListViewAuthor.setText(bookItemsList.get(position).getAuthor()+"");
-            Picasso.get().load("http://"+ bookItemsList.get(position).getIsbn()).into(viewHolder.imageView);
-
+            Picasso.get().load("http://covers.openlibrary.org/b/isbn/"+ bookItemsList.get(position).getIsbn()+"-S.jpg").into(viewHolder.imageView);   // Uses OpenLibrary to generate small images using the ISBN to display inside of the image frame
             return rowView;
         }
     }
