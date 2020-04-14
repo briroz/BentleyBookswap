@@ -8,6 +8,15 @@
     <string name="sortBy">Sort By:</string>
     <string name="classCode">Class Code (XX)</string>
     <string name="title">Title of Book</string>
+    <string name="itemTitle">Title: </string>
+    <string name="itemAuthor">Author: </string>
+    <string name="isbn">ISBN: </string>
+    <string name="itemCategory">Class Code: </string>
+    <string name="itemFirstName">First Name: </string>
+    <string name="price">Price: </string>
+    <string name="phone">Phone: </string>
+    <string name="email">Email: </string>
+    <string name="meetingLocation">Meeting Place: </string>
     <string-array name="locationSpinner">
         <item>Upper Campus</item>
         <item>Lower Campus</item>
