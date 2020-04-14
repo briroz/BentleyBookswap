@@ -9,6 +9,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button buttonSell1;
+    private Button buttonBuy1;
 
 
     @Override
@@ -17,12 +18,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         buttonSell1 = findViewById(R.id.buttonSell);
         buttonSell1.setOnClickListener(this);
+        buttonBuy1 = findViewById(R.id.buttonBuy);
+        buttonBuy1.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        Intent i = new Intent(getApplicationContext(),SellBookActivity.class);
-        startActivity(i);
-        //setContentView(R.layout.add_item_activity);  // Opens content view
+        switch (view.getId()) {
+            case R.id.buttonBuy:
+                Intent i1 = new Intent(getApplicationContext(),SortBuyingListActivity.class);
+                startActivity(i1);
+                break;
+            case R.id.buttonSell:
+                Intent i2 = new Intent(getApplicationContext(),SellBookActivity.class);
+                startActivity(i2);
+        }
+
     }
 }

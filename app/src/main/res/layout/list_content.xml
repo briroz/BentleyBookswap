@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_toRightOf="/@"
         android:padding="10dp">
 
         <ImageView
