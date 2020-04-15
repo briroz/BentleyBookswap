@@ -113,6 +113,7 @@ public class ListItemDetail extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.imageBackButton:
                 //
+                this.finish();
                 Log.d("TAG", "BACK BUTTON");
         }
     }
