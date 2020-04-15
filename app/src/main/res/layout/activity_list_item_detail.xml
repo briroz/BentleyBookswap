@@ -12,12 +12,11 @@
         android:layout_width="150dp"
         android:layout_height="200dp"
         android:layout_alignParentEnd="true"
-        android:layout_margin="15sp"
-        android:layout_marginStart="10sp"
-        android:layout_marginTop="10sp"
-        android:layout_marginEnd="10sp"
-        android:layout_marginBottom="10sp"
-        app:srcCompat="@drawable/ic_launcher_foreground" />
+        android:layout_marginStart="15sp"
+        android:layout_marginTop="15sp"
+        android:layout_marginEnd="15sp"
+        android:layout_marginBottom="15sp"
+        app:srcCompat="@drawable/bookcover" />
 
     <TextView
         android:id="@+id/textViewTitle"
@@ -27,7 +26,6 @@
         android:layout_marginTop="15sp"
         android:layout_marginEnd="15sp"
         android:layout_marginBottom="15sp"
-        android:text="TextView"
         android:textSize="24sp" />
 
     <TextView
@@ -39,7 +37,6 @@
         android:layout_marginTop="5sp"
         android:layout_marginEnd="15sp"
         android:layout_marginBottom="15sp"
-        android:text="TextView"
         android:textSize="18sp" />
 
     <TextView
@@ -51,7 +48,6 @@
         android:layout_marginTop="10sp"
         android:layout_marginEnd="10sp"
         android:layout_marginBottom="10sp"
-        android:text="TextView"
         android:textSize="24sp" />
 
     <TextView
@@ -59,8 +55,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewPrice"
-        android:layout_margin="15sp"
-        android:text="TextView" />
+        android:layout_marginStart="15sp"
+        android:layout_marginTop="15sp"
+        android:layout_marginEnd="15sp"
+        android:layout_marginBottom="15sp" />
 
     <TextView
         android:id="@+id/LabelIsbn"
@@ -68,21 +66,20 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/imageView"
         android:layout_marginEnd="2sp"
-        android:layout_toLeftOf="@id/textViewISBN"
+        android:layout_toLeftOf="@id/textViewIsbn"
         android:text="@string/isbn" />
 
     <TextView
-        android:id="@+id/textViewISBN"
+        android:id="@+id/textViewIsbn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/imageView"
-        android:layout_alignEnd="@id/imageView"
-        android:text="9789999999999" />
+        android:layout_alignEnd="@id/imageView" />
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/textViewISBN"
+        android:layout_below="@id/textViewIsbn"
         android:layout_marginTop="20sp">
 
         <TableRow
@@ -93,7 +90,8 @@
                 android:id="@+id/LabelName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="35sp"
+                android:layout_marginLeft="35sp"
+                android:layout_marginRight="10sp"
                 android:text="@string/itemFirstName"
                 android:textSize="18sp" />
 
@@ -101,7 +99,6 @@
                 android:id="@+id/textViewName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35sp"
                 android:textSize="18sp" />
         </TableRow>
 
@@ -113,7 +110,8 @@
                 android:id="@+id/LabelPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="35sp"
+                android:layout_marginLeft="35sp"
+                android:layout_marginRight="10sp"
                 android:text="@string/phone"
                 android:textSize="18sp" />
 
@@ -121,7 +119,6 @@
                 android:id="@+id/textViewPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35sp"
                 android:textSize="18sp" />
         </TableRow>
 
@@ -133,7 +130,8 @@
                 android:id="@+id/LabelEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="35sp"
+                android:layout_marginLeft="35sp"
+                android:layout_marginRight="10sp"
                 android:text="@string/email"
                 android:textSize="18sp" />
 
@@ -141,7 +139,6 @@
                 android:id="@+id/textViewEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35sp"
                 android:textSize="18sp" />
         </TableRow>
 
@@ -150,11 +147,11 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/Location:"
+                android:id="@+id/LabelMeeting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="35sp"
-                android:layout_marginTop="35sp"
+                android:layout_marginLeft="35sp"
+                android:layout_marginRight="10sp"
                 android:text="@string/meetingLocation"
                 android:textSize="18sp" />
 
@@ -162,7 +159,6 @@
                 android:id="@+id/textViewLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35sp"
                 android:textSize="18sp" />
         </TableRow>
     </TableLayout>

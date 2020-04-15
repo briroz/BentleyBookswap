@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +51,7 @@ public class BookListActivityByClass extends AppCompatActivity implements Adapte
         classCategory = findViewById(R.id.spinnerClassCategory);  // Add Spinner
         classCategory.setOnItemSelectedListener(this);   // Add listener to update entries when new item selected
         bookListView = findViewById(R.id.classSortedBookList); // Add book list object to view
-
+        bookListView.setOnItemClickListener(this);
         getItems("ALL BOOKS");   // Start the JSON retrieval, loading ALL items
     }
 
@@ -170,6 +171,7 @@ public class BookListActivityByClass extends AppCompatActivity implements Adapte
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Log.d("TAG", "CLICKED");
         Intent intent = new Intent(this, ListItemDetail.class);
         HashMap<String,String> map =(HashMap)adapterView.getItemAtPosition(i);
         String itemKey = map.get("itemKey").toString();
@@ -177,12 +179,18 @@ public class BookListActivityByClass extends AppCompatActivity implements Adapte
         String bookTitle = map.get("bookTitle").toString();
         String bookAuthor = map.get("bookAuthor").toString();
         String isbn = map.get("isbn");
+        if (isbn.equals("")) {  // If the ISBN is Empty, add a N/A
+            isbn = "N/A";
+        }
         String price = map.get("price");
         if (!price.contains("$")) {  // Add a dollar sign if there is not one already
             price = "$"+price;
         }
         String meetingPlace = map.get("meetingPlace");
         String phone = map.get("phone");
+        if (phone.equals("")) {
+            phone = "N/A";
+        }
         String email = map.get("email");
         String bookCategory = map.get("bookCategory");
 

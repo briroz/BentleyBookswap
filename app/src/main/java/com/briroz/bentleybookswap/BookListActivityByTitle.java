@@ -3,8 +3,11 @@ package com.briroz.bentleybookswap;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -26,7 +29,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-    public class BookListActivityByTitle extends AppCompatActivity implements View.OnClickListener {
+    public class BookListActivityByTitle extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
         private EditText bookTitleSearch;
         private Button bookSearchButton;
@@ -43,6 +46,7 @@ import java.util.HashMap;
             bookListView = findViewById(R.id.titleSortedBookList); // Add book list object to view
             bookSearchButton = findViewById(R.id.buttonSearchTitle);
             bookSearchButton.setOnClickListener(this);
+            bookListView.setOnItemClickListener(this);
             getItems("");   // Start the JSON retrieval, loading ALL items (empty string)
 
         }
@@ -150,5 +154,46 @@ import java.util.HashMap;
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            Log.d("TAG", "CLICKED");
+            Intent intent = new Intent(this, ListItemDetail.class);
+            HashMap<String,String> map =(HashMap)adapterView.getItemAtPosition(i);
+            String itemKey = map.get("itemKey").toString();
+            String firstName = map.get("firstName").toString();
+            String bookTitle = map.get("bookTitle").toString();
+            String bookAuthor = map.get("bookAuthor").toString();
+            String isbn = map.get("isbn");
+            if (isbn.equals("")) {  // If the ISBN is Empty, add a N/A
+                isbn = "N/A";
+            }
+            String price = map.get("price");
+            if (!price.contains("$")) {  // Add a dollar sign if there is not one already
+                price = "$"+price;
+            }
+            String meetingPlace = map.get("meetingPlace");
+            String phone = map.get("phone");
+            if (phone.equals("")) {
+                phone = "N/A";
+            }
+            String email = map.get("email");
+            String bookCategory = map.get("bookCategory");
+
+
+            intent.putExtra("itemKey",itemKey);
+            intent.putExtra("firstName", firstName);
+            intent.putExtra("bookTitle",bookTitle);
+            intent.putExtra("bookAuthor", bookAuthor);
+            intent.putExtra("isbn", isbn);
+            intent.putExtra("price",price);
+            intent.putExtra("meetingPlace", meetingPlace);
+            intent.putExtra("phone", phone);
+            intent.putExtra("email", email);
+            intent.putExtra("bookCategory",bookCategory);
+
+
+            startActivity(intent);
         }
     }
