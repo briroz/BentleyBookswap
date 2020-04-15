@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -105,6 +106,10 @@ public class ListItemDetail extends AppCompatActivity implements View.OnClickLis
             case R.id.imageView:
                 Log.d("TAG", "OPEN BOOKFINDER");
                 // Open Browser with ISBN
+                String url = "https://www.bookfinder.com/search/?isbn="+isbn+"&st=xl&ac=qr&src=recent-m";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
                 break;
             case R.id.imageBackButton:
                 //
