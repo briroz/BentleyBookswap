@@ -141,9 +141,9 @@ import java.util.HashMap;
                 e.printStackTrace();
             }
 
-            loadingDialog.dismiss();
             simpleAdapter = new SimpleAdapter(this,list,R.layout.list_content, new String[]{"bookTitle","bookAuthor","bookCategory", "price", "itemKey"},new int[]{R.id.ListItemTitle,R.id.ListItemAuthor,R.id.ListItemCategory, R.id.ListItemPrice});
             bookListView.setAdapter(simpleAdapter);
+            loadingDialog.dismiss();
 
         }
 

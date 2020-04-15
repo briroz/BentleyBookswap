@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ListItemDetail extends AppCompatActivity implements View.OnClickListener {
 
@@ -77,6 +78,9 @@ public class ListItemDetail extends AppCompatActivity implements View.OnClickLis
         textViewName.setText(firstName);
         textViewPhone.setText(phone);
         textViewEmail.setText(email);
+        if (meetingPlace.equals("")) {
+            meetingPlace = "No Meeting Place Given";
+        }
         textViewLocation.setText(meetingPlace);
 
 
@@ -88,28 +92,108 @@ public class ListItemDetail extends AppCompatActivity implements View.OnClickLis
         int itemID = view.getId();  //get id of button clicked
         switch (itemID) {
             case R.id.buttonCall:
-                Log.d("TAG", "CALL  "+phone);
-                // Open Dialer
+                if (this.phone.equals("N/A")) {   // If the phone exists, do the intent.  If not toast error.
+                    // Toast
+                } else {
+                    Log.d("TAG", "CALL  "+phone);
+                    // Open Dialer
+                    String phone = "tel:"+ this.phone;
+                    Intent i1 = new Intent(Intent.ACTION_VIEW);
+                    i1.setData(Uri.parse(phone));
+                    try {
+                        startActivity(i1);
+                    } catch (SecurityException e) {
+                        //
+                    }
+                }
+
                 break;
             case R.id.buttonText:
-                Log.d("TAG", "TEXT  "+phone);
-                // Open SMS with suggested message
+                if (this.phone.equals("N/A")) {
+                    // Toast that Phone # isnt there
+                } else {
+                    Log.d("TAG", "TEXT  "+ this.phone);
+                    // Open SMS with suggested message that includes the book's title.
+                    String suggestedText = "Hello, I am contacting you regarding your Bentley Bookswap listing '"+bookTitle+"'.  Is it still available?";
+                    String sms = "sms:"+ this.phone;
+                    Intent i3 = new Intent(Intent.ACTION_VIEW);
+                    i3.putExtra("sms_body", suggestedText);
+                    i3.setData(Uri.parse(sms));
+                    try {
+                        startActivity(i3);
+                    } catch (SecurityException e) {
+                        //
+                    }
+                }
+
                 break;
             case R.id.buttonEmail:
                 Log.d("TAG", "EMAIL  "+email);
-                // Open Email with a pre-defined polite email
+                // Open Email with a pre-defined and polite email
+                Intent i4 = new Intent(Intent.ACTION_SEND);
+                i4.putExtra(Intent.EXTRA_EMAIL, new String[]{email});
+                i4.setType("message/rfc822");
+                i4.putExtra(Intent.EXTRA_SUBJECT, "Bentley Bookswap Purchase Inquiry: '"+bookTitle+"'  for "+price);
+                i4.putExtra(Intent.EXTRA_TEXT, "Dear "+firstName+", \n\n I am contacting you regarding the listing for '"+bookTitle+"' by "+bookAuthor+". Is it still available?  I would like to offer "+price+" if so.  \n\n Thank you,");
+
+                startActivity(Intent.createChooser(i4, "Send Email"));
                 break;
             case R.id.buttonMap:
                 Log.d("TAG", "MAP  "+meetingPlace);
                 // Open Map to defined points in a switch
+                switch (meetingPlace) {
+                    case "No Meeting Place Given":
+                        // empty meeting place, toast error
+                        Toast.makeText(getApplicationContext(),"No Meeting Place Given, Please Ask Seller", Toast.LENGTH_LONG).show();
+                        break;
+                    case "Upper Campus":
+                        // Open upper campus
+                        String geoLocation ="geo: 42.387720, -71.220219?z=17";
+                        Intent i5 = new Intent(Intent.ACTION_VIEW);
+                        i5.setData(Uri.parse(geoLocation));
+                        if (i5.resolveActivity(getPackageManager()) != null) {
+                            startActivity(i5);
+                        }
+                            break;
+                    case "Lower Campus":
+                        // open lower
+                        String geoLocation1 ="geo: 42.384672, -71.223718?z=18";
+                        Intent i6 = new Intent(Intent.ACTION_VIEW);
+                        i6.setData(Uri.parse(geoLocation1));
+                        if (i6.resolveActivity(getPackageManager()) != null) {
+                            startActivity(i6);
+                        }
+                        break;
+                    case "Student Center":
+                        //open stu
+                        String geoLocation2 ="geo: 42.385964, -71.222777?z=19";
+                        Intent i7 = new Intent(Intent.ACTION_VIEW);
+                        i7.setData(Uri.parse(geoLocation2));
+                        if (i7.resolveActivity(getPackageManager()) != null) {
+                            startActivity(i7);
+                        }
+                        break;
+                    case "Library":
+                        //open lib
+                        String geoLocation3 ="geo: 42.388004, -71.219816?z=19";
+                        Intent i8 = new Intent(Intent.ACTION_VIEW);
+                        i8.setData(Uri.parse(geoLocation3));
+                        if (i8.resolveActivity(getPackageManager()) != null) {
+                            startActivity(i8);
+                        }
+                        break;
+                    default:
+                        Toast.makeText(getApplicationContext(),"Location Not Recognized, Please Ask Seller", Toast.LENGTH_LONG).show();
+                        break;
+                }
                 break;
             case R.id.imageView:
                 Log.d("TAG", "OPEN BOOKFINDER");
                 // Open Browser with ISBN
                 String url = "https://www.bookfinder.com/search/?isbn="+isbn+"&st=xl&ac=qr&src=recent-m";
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                startActivity(i);
+                Intent i2 = new Intent(Intent.ACTION_VIEW);
+                i2.setData(Uri.parse(url));
+                startActivity(i2);
                 break;
             case R.id.imageBackButton:
                 //
