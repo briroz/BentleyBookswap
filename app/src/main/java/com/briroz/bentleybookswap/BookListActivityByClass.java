@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -169,6 +170,35 @@ public class BookListActivityByClass extends AppCompatActivity implements Adapte
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Intent intent = new Intent(this, ListItemDetail.class);
+        HashMap<String,String> map =(HashMap)adapterView.getItemAtPosition(i);
+        String itemKey = map.get("itemKey").toString();
+        String firstName = map.get("firstName").toString();
+        String bookTitle = map.get("bookTitle").toString();
+        String bookAuthor = map.get("bookAuthor").toString();
+        String isbn = map.get("isbn");
+        String price = map.get("price");
+        if (!price.contains("$")) {  // Add a dollar sign if there is not one already
+            price = "$"+price;
+        }
+        String meetingPlace = map.get("meetingPlace");
+        String phone = map.get("phone");
+        String email = map.get("email");
+        String bookCategory = map.get("bookCategory");
 
+
+        intent.putExtra("itemKey",itemKey);
+        intent.putExtra("firstName", firstName);
+        intent.putExtra("bookTitle",bookTitle);
+        intent.putExtra("bookAuthor", bookAuthor);
+        intent.putExtra("isbn", isbn);
+        intent.putExtra("price",price);
+        intent.putExtra("meetingPlace", meetingPlace);
+        intent.putExtra("phone", phone);
+        intent.putExtra("email", email);
+        intent.putExtra("bookCategory",bookCategory);
+
+
+        startActivity(intent);
     }
 }
