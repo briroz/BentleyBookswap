@@ -18,6 +18,13 @@
     <string name="email">Email: </string>
     <string name="meetingLocation">Meeting Place: </string>
     <string name="buttonSearch">Go</string>
+    <string name="menuISBN">Web ISBN Search</string>
+    <string name="menuTitle">Web Title Search</string>
+    <string name="menuShare">Share Listing</string>
+    <string name="buttonText">Text</string>
+    <string name="buttonCall">Call</string>
+    <string name="buttonEmail">Email</string>
+    <string name="buttonMap">Map</string>
     <string-array name="locationSpinner">
         <item>Upper Campus</item>
         <item>Lower Campus</item>

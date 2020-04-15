@@ -6,35 +6,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
-
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.squareup.picasso.Picasso;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ListItemDetail extends AppCompatActivity implements View.OnClickListener {
 
 
     TextView textViewTitle, textViewAuthor, textViewPrice, textViewCategory, textViewIsbn, textViewName, textViewPhone, textViewEmail, textViewLocation;
     ImageView imageView;
-    Button buttonOpenMap, buttonOpenDialer, buttonOpenEmail;
+    Button buttonMap, buttonDialer, buttonSMS, buttonEmail;
+    ImageButton buttonBack;
     String itemKey, firstName, bookTitle, bookAuthor, isbn, price, meetingPlace, phone, email, bookCategory;
 
     @Override
@@ -42,6 +28,8 @@ public class ListItemDetail extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_list_item_detail);
+
+
 
         Intent intent = getIntent();
         itemKey = intent.getStringExtra("itemKey");
@@ -66,8 +54,18 @@ public class ListItemDetail extends AppCompatActivity implements View.OnClickLis
         textViewEmail = (TextView) findViewById(R.id.textViewEmail);
         textViewLocation = (TextView) findViewById(R.id.textViewLocation);
         imageView = (ImageView) findViewById(R.id.imageView);
-        imageView.setOnClickListener(this);
+        buttonSMS = (Button) findViewById(R.id.buttonText);
+        buttonMap = (Button) findViewById(R.id.buttonMap);
+        buttonEmail = (Button) findViewById(R.id.buttonEmail);
+        buttonDialer = (Button) findViewById(R.id.buttonCall);
+        buttonBack = (ImageButton) findViewById(R.id.imageBackButton);
 
+        buttonBack.setOnClickListener(this);
+        buttonDialer.setOnClickListener(this);
+        buttonEmail.setOnClickListener(this);
+        buttonMap.setOnClickListener(this);
+        buttonSMS.setOnClickListener(this);
+        imageView.setOnClickListener(this);
 
         textViewTitle.setText(bookTitle);
         textViewAuthor.setText(bookAuthor);
@@ -85,10 +83,57 @@ public class ListItemDetail extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        if (isbn != null) {
-            // Open Web Activity
-            Log.d("TAG", "OPEN WEB CLICKED");
+
+        int itemID = view.getId();  //get id of button clicked
+        switch (itemID) {
+            case R.id.buttonCall:
+                Log.d("TAG", "CALL  "+phone);
+                // Open Dialer
+                break;
+            case R.id.buttonText:
+                Log.d("TAG", "TEXT  "+phone);
+                // Open SMS with suggested message
+                break;
+            case R.id.buttonEmail:
+                Log.d("TAG", "EMAIL  "+email);
+                // Open Email with a pre-defined polite email
+                break;
+            case R.id.buttonMap:
+                Log.d("TAG", "MAP  "+meetingPlace);
+                // Open Map to defined points in a switch
+                break;
+            case R.id.imageView:
+                Log.d("TAG", "OPEN BOOKFINDER");
+                // Open Browser with ISBN
+                break;
+            case R.id.imageBackButton:
+                //
+                Log.d("TAG", "BACK BUTTON");
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_detail, menu);  // Propagates menu items defined in menu_main
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int itemID = item.getItemId();  //get id of menu item picked
+
+        switch (itemID) {
+            case R.id.menuISBN:
+                Log.d("TAG", "ISBN WEB CLICKED");
+                break;
+            case R.id.menuShare:
+                Log.d("TAG", "SHARE MENU CLICKED");
+                break;
+            case R.id.menuTitle:
+                Log.d("TAG", "TITLE WEB CLICKED");
+                break;
+        } return false;
     }
 }
 

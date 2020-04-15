@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toolbar;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
     public class BookListActivityByTitle extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
-
+        private Toolbar toolbar;
         private EditText bookTitleSearch;
         private Button bookSearchButton;
         private ListView bookListView;
@@ -49,7 +50,9 @@ import java.util.HashMap;
             bookListView.setOnItemClickListener(this);
             getItems("");   // Start the JSON retrieval, loading ALL items (empty string)
 
+
         }
+
 
 
         private void getItems(final String title) {
