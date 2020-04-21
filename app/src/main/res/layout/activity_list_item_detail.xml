@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#1282c4"
     android:orientation="vertical"
     tools:context=".ListItemDetail">
 
@@ -27,6 +28,8 @@
         android:layout_marginEnd="15sp"
         android:layout_marginBottom="15sp"
         android:layout_toLeftOf="@id/imageView"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#C6C6C6"
         android:textSize="24sp" />
 
     <TextView
@@ -38,6 +41,8 @@
         android:layout_marginTop="5sp"
         android:layout_marginEnd="15sp"
         android:layout_marginBottom="15sp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#C6C6C6"
         android:textSize="18sp" />
 
     <TextView
@@ -49,6 +54,8 @@
         android:layout_marginTop="10sp"
         android:layout_marginEnd="10sp"
         android:layout_marginBottom="20sp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#C6C6C6"
         android:textSize="24sp" />
 
     <TextView
@@ -61,6 +68,8 @@
         android:layout_marginEnd="15sp"
         android:layout_marginBottom="15sp"
         android:layout_toRightOf="@id/textViewPrice"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#C6C6C6"
         android:textSize="18sp" />
 
     <TextView
@@ -70,14 +79,18 @@
         android:layout_below="@id/imageView"
         android:layout_marginEnd="2sp"
         android:layout_toLeftOf="@id/textViewIsbn"
-        android:text="@string/isbn" />
+        android:text="@string/isbn"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#C6C6C6" />
 
     <TextView
         android:id="@+id/textViewIsbn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/imageView"
-        android:layout_alignEnd="@id/imageView" />
+        android:layout_alignEnd="@id/imageView"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#C6C6C6" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -101,12 +114,16 @@
                     android:layout_marginLeft="35sp"
                     android:layout_marginRight="10sp"
                     android:text="@string/itemFirstName"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#C6C6C6"
                     android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/textViewName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#C6C6C6"
                     android:textSize="18sp" />
             </TableRow>
 
@@ -121,12 +138,16 @@
                     android:layout_marginLeft="35sp"
                     android:layout_marginRight="10sp"
                     android:text="@string/phone"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#C6C6C6"
                     android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/textViewPhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#C6C6C6"
                     android:textSize="18sp" />
             </TableRow>
 
@@ -141,12 +162,16 @@
                     android:layout_marginLeft="35sp"
                     android:layout_marginRight="10sp"
                     android:text="@string/email"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#C6C6C6"
                     android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/textViewEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#C6C6C6"
                     android:textSize="18sp" />
             </TableRow>
 
@@ -161,12 +186,16 @@
                     android:layout_marginLeft="35sp"
                     android:layout_marginRight="10sp"
                     android:text="@string/meetingLocation"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#C6C6C6"
                     android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/textViewLocation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#C6C6C6"
                     android:textSize="18sp" />
             </TableRow>
 
@@ -187,14 +216,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10sp"
-                    android:text="@string/buttonText" />
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="center_horizontal"
+                    android:text="@string/buttonText"
+                    android:textSize="18sp"
+                    android:textStyle="normal" />
 
                 <Button
                     android:id="@+id/buttonCall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10sp"
-                    android:text="@string/buttonCall" />
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="center_horizontal"
+                    android:text="@string/buttonCall"
+                    android:textSize="18sp"
+                    android:textStyle="normal" />
             </TableRow>
 
             <TableRow
@@ -207,20 +244,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10sp"
-                    android:text="@string/buttonEmail" />
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="center_horizontal"
+                    android:text="@string/buttonEmail"
+                    android:textSize="18sp"
+                    android:textStyle="normal" />
 
                 <Button
                     android:id="@+id/buttonMap"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10sp"
-                    android:text="@string/buttonMap" />
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="center_horizontal"
+                    android:text="@string/buttonMap"
+                    android:textSize="18sp"
+                    android:textStyle="normal" />
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal" />
 
         </TableLayout>
 

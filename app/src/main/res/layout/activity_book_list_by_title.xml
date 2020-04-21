@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#1282c4"
     android:orientation="vertical"
     tools:context=".BookListActivityByTitle">
 
@@ -18,14 +19,19 @@
             android:layout_toLeftOf="@id/buttonSearchTitle"
             android:ems="10"
             android:hint="@string/title"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#C5C5C5" />
 
         <Button
             android:id="@+id/buttonSearchTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="@string/buttonSearch" />
+            android:fontFamily="sans-serif-condensed"
+            android:gravity="center_horizontal"
+            android:text="@string/buttonSearch"
+            android:textSize="18sp" />
     </RelativeLayout>
 
     <ListView

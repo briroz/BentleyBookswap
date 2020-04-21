@@ -6,6 +6,14 @@
     <string name="buttonBuy">Buy Books</string>
     <string name="buttonSell">Sell Books</string>
     <string name="buttonSubmit">Submit for Review</string>
+    <string name="createListing">Create Bookswap Listing:</string>
+    <string name="terms">This listing is accurate and is not spam.  Any abuses of listings will be reported.</string>
+    <string name="hintFname">First Name: (Required)</string>
+    <string name="hintTitle">Book Title: (Required)</string>
+    <string name="hintAuthor">Author: (Required)</string>
+    <string name="hintPrice">$0.00 (Required)</string>
+    <string name="hintPhone">(888) 888-8888</string>
+    <string name="hintEmail">falcons@bentley.edu (Required)</string>
     <string name="sortBy">Sort By:</string>
     <string name="classCode">Class Code (XX)</string>
     <string name="title">Title of Book</string>
@@ -19,9 +27,9 @@
     <string name="email">Email: </string>
     <string name="meetingLocation">Meeting Place: </string>
     <string name="buttonSearch">Go</string>
-    <string name="menuISBN">Web ISBN Search</string>
-    <string name="menuTitle">Web Title Search</string>
-    <string name="menuShare">Share Listing</string>
+    <string name="menuISBN">ISBN Search</string>
+    <string name="menuTitle">Title Search</string>
+    <string name="menuShare">Share</string>
     <string name="buttonText">Text</string>
     <string name="buttonCall">Call</string>
     <string name="buttonEmail">Email</string>

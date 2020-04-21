@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.SearchManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -269,12 +270,23 @@ public class ListItemDetail extends AppCompatActivity implements View.OnClickLis
         switch (itemID) {
             case R.id.menuISBN:
                 Log.d("TAG", "ISBN WEB CLICKED");
+                Intent viewSearch = new Intent(Intent.ACTION_WEB_SEARCH);
+                viewSearch.putExtra(SearchManager.QUERY, isbn);
+                if (isbn.equals("")) {
+                    Toast.makeText(getApplicationContext(),"No ISBN to search", Toast.LENGTH_SHORT).show();
+                } else {
+                    startActivity(viewSearch);  // Search in the web
+                }
                 break;
             case R.id.menuShare:
                 Log.d("TAG", "SHARE MENU CLICKED");
                 break;
             case R.id.menuTitle:
                 Log.d("TAG", "TITLE WEB CLICKED");
+                Intent viewSearch2 = new Intent(Intent.ACTION_WEB_SEARCH);
+                viewSearch2.putExtra(SearchManager.QUERY, bookTitle+" by "+bookAuthor);
+                startActivity(viewSearch2);  // Search in the web for book by title and author
+
                 break;
             case android.R.id.home:
                 this.finish();  // Go back when back button is pressed
