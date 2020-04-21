@@ -1,11 +1,13 @@
 package com.briroz.bentleybookswap;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -43,6 +45,11 @@ import java.util.HashMap;
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_book_list_by_title);  // Set activity view
+
+            ActionBar actionBar = getSupportActionBar();  // Adds back button to list view
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+
             bookTitleSearch = findViewById(R.id.editTextTitleSearch);  // Add Search box
             bookListView = findViewById(R.id.titleSortedBookList); // Add book list object to view
             bookSearchButton = findViewById(R.id.buttonSearchTitle);
@@ -198,5 +205,16 @@ import java.util.HashMap;
 
 
             startActivity(intent);
+        }
+
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+
+            int itemID = item.getItemId();  //get id of menu item picked
+            if (itemID == android.R.id.home) {
+                this.finish();  // Go back
+            }
+           return false;
         }
     }

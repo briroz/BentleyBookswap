@@ -1,29 +1,34 @@
 package com.briroz.bentleybookswap;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.TextToSpeech.OnInitListener;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ListItemDetail extends AppCompatActivity implements View.OnClickListener {
+import java.util.Locale;
+
+public class ListItemDetail extends AppCompatActivity implements View.OnClickListener, OnInitListener {
 
 
     TextView textViewTitle, textViewAuthor, textViewPrice, textViewCategory, textViewIsbn, textViewName, textViewPhone, textViewEmail, textViewLocation;
     ImageView imageView;
     Button buttonMap, buttonDialer, buttonSMS, buttonEmail;
-    ImageButton buttonBack;
     String itemKey, firstName, bookTitle, bookAuthor, isbn, price, meetingPlace, phone, email, bookCategory;
+    private TextToSpeech speaker;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,7 +36,11 @@ public class ListItemDetail extends AppCompatActivity implements View.OnClickLis
 
         setContentView(R.layout.activity_list_item_detail);
 
+        ActionBar actionBar = getSupportActionBar();  // Adds back button to Detail view, back button goes to either title list or class list depending which was used.
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
+        speaker = new TextToSpeech(this, this);
 
         Intent intent = getIntent();
         itemKey = intent.getStringExtra("itemKey");
@@ -60,14 +69,14 @@ public class ListItemDetail extends AppCompatActivity implements View.OnClickLis
         buttonMap = (Button) findViewById(R.id.buttonMap);
         buttonEmail = (Button) findViewById(R.id.buttonEmail);
         buttonDialer = (Button) findViewById(R.id.buttonCall);
-        buttonBack = (ImageButton) findViewById(R.id.imageBackButton);
 
-        buttonBack.setOnClickListener(this);
         buttonDialer.setOnClickListener(this);
         buttonEmail.setOnClickListener(this);
         buttonMap.setOnClickListener(this);
         buttonSMS.setOnClickListener(this);
         imageView.setOnClickListener(this);
+        textViewTitle.setOnClickListener(this);   // For speaking the title when clicked
+        textViewAuthor.setOnClickListener(this);  // ^^ Author
 
         textViewTitle.setText(bookTitle);
         textViewAuthor.setText(bookAuthor);
@@ -82,9 +91,48 @@ public class ListItemDetail extends AppCompatActivity implements View.OnClickLis
             meetingPlace = "No Meeting Place Given";
         }
         textViewLocation.setText(meetingPlace);
-
-
     }
+
+
+    //speak methods will send text to be spoken
+    public void speak(String output){
+        speaker.speak(output, TextToSpeech.QUEUE_FLUSH, null, "ID 0");
+    }
+
+
+
+    public void onInit(int status) {                 // Implements TextToSpeech.OnInitListener
+        if (status == TextToSpeech.SUCCESS) {        // status can be either TextToSpeech.SUCCESS or TextToSpeech.ERROR.
+
+            int result = speaker.setLanguage(Locale.US); // Set preferred language to US english.
+            if (result == TextToSpeech.LANG_MISSING_DATA ||
+                    result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                // Language data is missing or the language is not supported.
+                Log.e("TAG", "Language is not available.");
+            } else {
+                // The TTS engine has been successfully initialized
+                Log.i("TAG", "TTS Initialization successful.");
+            }
+        } else {
+            // Initialization failed.
+            Log.e("TAG", "Could not initialize TextToSpeech.");
+        }
+    }
+
+    // on destroy, shutdown speaker
+    public void onDestroy(){
+
+        // shut down TTS engine
+        if(speaker != null){
+            speaker.stop();
+            speaker.shutdown();
+        }
+        super.onDestroy();
+    }
+
+
+
+
 
     @Override
     public void onClick(View view) {
@@ -125,7 +173,6 @@ public class ListItemDetail extends AppCompatActivity implements View.OnClickLis
                         //
                     }
                 }
-
                 break;
             case R.id.buttonEmail:
                 Log.d("TAG", "EMAIL  "+email);
@@ -195,15 +242,21 @@ public class ListItemDetail extends AppCompatActivity implements View.OnClickLis
                 i2.setData(Uri.parse(url));
                 startActivity(i2);
                 break;
-            case R.id.imageBackButton:
-                //
-                this.finish();
-                Log.d("TAG", "BACK BUTTON");
+            case R.id.textViewTitle:
+                String titleSpeak = textViewTitle.getText().toString();
+                speak(titleSpeak);
+                break;
+            case R.id.textViewAuthor:
+                String authorSpeak = textViewAuthor.getText().toString();
+                speak(authorSpeak);
+                break;
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        setTitle("");  // Blank out title, buttons take up all of the titlebar
+//        actionBar.setHomeButtonEnabled(true);
         getMenuInflater().inflate(R.menu.menu_detail, menu);  // Propagates menu items defined in menu_main
         return true;
     }
@@ -222,6 +275,9 @@ public class ListItemDetail extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.menuTitle:
                 Log.d("TAG", "TITLE WEB CLICKED");
+                break;
+            case android.R.id.home:
+                this.finish();  // Go back when back button is pressed
                 break;
         } return false;
     }

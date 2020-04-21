@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#1282c4"
     android:orientation="vertical">
 
     <TextView
@@ -9,15 +10,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50sp"
+        android:layout_marginBottom="10sp"
         android:fontFamily="sans-serif-condensed"
         android:gravity="center_horizontal"
         android:text="@string/sortBy"
+        android:textColor="#FFFFFF"
         android:textSize="24sp" />
 
     <Button
         android:id="@+id/buttonClassSort"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="30sp"
+        android:layout_marginRight="30sp"
         android:fontFamily="sans-serif-condensed"
         android:gravity="center_horizontal"
         android:text="@string/classCode"
@@ -27,6 +32,8 @@
         android:id="@+id/buttonTitleSort"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="30sp"
+        android:layout_marginRight="30sp"
         android:fontFamily="sans-serif-condensed"
         android:gravity="center_horizontal"
         android:text="@string/title"

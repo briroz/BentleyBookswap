@@ -1,20 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#1282c4"
     android:orientation="vertical"
     tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50sp"
+        android:layout_marginBottom="10sp"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="center_horizontal"
+        android:text="@string/likeTo"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp" />
 
     <Button
         android:id="@+id/buttonSell"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/buttonSell" />
+        android:layout_marginLeft="30sp"
+        android:layout_marginRight="30sp"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="center_horizontal"
+        android:text="@string/buttonSell"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/buttonBuy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/buttonBuy" />
+        android:layout_marginLeft="30sp"
+        android:layout_marginRight="30sp"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="center_horizontal"
+        android:text="@string/buttonBuy"
+        android:textSize="18sp" />
+
+    <ImageView
+        android:id="@+id/bentleyLogoView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="75sp"
+        android:layout_marginRight="75sp"
+        app:srcCompat="@drawable/paratus" />
 </LinearLayout>

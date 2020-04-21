@@ -7,30 +7,26 @@
     android:orientation="vertical"
     tools:context=".BookListActivityByTitle">
 
-    <TableLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TableRow
+        <EditText
+            android:id="@+id/editTextTitleSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/buttonSearchTitle"
+            android:ems="10"
+            android:hint="@string/title"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/buttonSearchTitle"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-            <EditText
-                android:id="@+id/editTextTitleSearch"
-                android:layout_width="321dp"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/title"
-                android:inputType="textPersonName" />
-
-            <Button
-                android:id="@+id/buttonSearchTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/buttonSearch" />
-        </TableRow>
-
-    </TableLayout>
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="@string/buttonSearch" />
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/titleSortedBookList"

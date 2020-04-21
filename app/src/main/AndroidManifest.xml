@@ -3,6 +3,7 @@
     package="com.briroz.bentleybookswap">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-sdk android:minSdkVersion="24" />
 
     <application
         android:allowBackup="true"
@@ -11,8 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ListItemDetail"></activity>
-        <activity android:name=".SaleItemPageActivity" />
+        <activity android:name=".ListItemDetail"/>
         <activity android:name=".BookListActivityByTitle" />
         <activity android:name=".BookListActivityByClass" />
         <activity android:name=".SortBuyingListActivity" />
