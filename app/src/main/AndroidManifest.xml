@@ -3,7 +3,6 @@
     package="com.briroz.bentleybookswap">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-sdk android:minSdkVersion="24" />
 
     <application
         android:allowBackup="true"

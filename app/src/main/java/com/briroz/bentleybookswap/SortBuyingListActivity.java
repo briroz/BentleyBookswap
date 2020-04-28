@@ -7,17 +7,37 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 public class SortBuyingListActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button buttonClassSort1;
     private Button buttonTitleSort1;
+    private RelativeLayout layout;
+    private ImageView image;
+    private ImageView image2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sort_buying_list_activity);
+
+        layout = (RelativeLayout)findViewById(R.id.layout);
+        image = (ImageView) findViewById(R.id.img);
+        image.setImageResource(R.drawable.falcon);
+        image2 = (ImageView) findViewById(R.id.img2);
+        image2.setImageResource(R.drawable.books);
+
+        // Load the appropriate animation
+        Animation an =  AnimationUtils.loadAnimation(this, R.anim.animation);
+        layout.startAnimation(an);
+
+
 
         ActionBar actionBar = getSupportActionBar();  // Adds back button to list view
         actionBar.setHomeButtonEnabled(true);
