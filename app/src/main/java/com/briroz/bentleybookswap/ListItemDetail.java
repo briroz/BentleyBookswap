@@ -274,9 +274,6 @@ public class ListItemDetail extends AppCompatActivity implements View.OnClickLis
                     startActivity(viewSearch);  // Search in the web
                 }
                 break;
-            case R.id.menuShare:
-                Log.d("TAG", "SHARE MENU CLICKED");
-                break;
             case R.id.menuTitle:
                 Log.d("TAG", "TITLE WEB CLICKED");
                 Intent viewSearch2 = new Intent(Intent.ACTION_WEB_SEARCH);

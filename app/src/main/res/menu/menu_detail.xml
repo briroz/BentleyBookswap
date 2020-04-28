@@ -11,8 +11,5 @@
         android:id="@+id/menuTitle"
         android:title="@string/menuTitle"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/menuShare"
-        android:title="@string/menuShare"
-        app:showAsAction="always" />
+
 </menu>
