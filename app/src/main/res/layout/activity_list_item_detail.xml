@@ -92,183 +92,190 @@
         android:textColor="#FFFFFF"
         android:textColorHint="#C6C6C6" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/LabelIsbn"
-        android:orientation="vertical">
+        android:layout_below="@id/textViewPrice">
 
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30sp">
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/LabelName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="35sp"
-                    android:layout_marginRight="10sp"
-                    android:text="@string/itemFirstName"
-                    android:textColor="#FFFFFF"
-                    android:textColorHint="#C6C6C6"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/textViewName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
-                    android:textColorHint="#C6C6C6"
-                    android:textSize="18sp" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/LabelPhone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="35sp"
-                    android:layout_marginRight="10sp"
-                    android:text="@string/phone"
-                    android:textColor="#FFFFFF"
-                    android:textColorHint="#C6C6C6"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/textViewPhone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
-                    android:textColorHint="#C6C6C6"
-                    android:textSize="18sp" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/LabelEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="35sp"
-                    android:layout_marginRight="10sp"
-                    android:text="@string/email"
-                    android:textColor="#FFFFFF"
-                    android:textColorHint="#C6C6C6"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/textViewEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
-                    android:textColorHint="#C6C6C6"
-                    android:textSize="18sp" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/LabelMeeting"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="35sp"
-                    android:layout_marginRight="10sp"
-                    android:text="@string/meetingLocation"
-                    android:textColor="#FFFFFF"
-                    android:textColorHint="#C6C6C6"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/textViewLocation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
-                    android:textColorHint="#C6C6C6"
-                    android:textSize="18sp" />
-            </TableRow>
-
-        </TableLayout>
-
-        <TableLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="25sp">
+            android:orientation="vertical">
 
-            <TableRow
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30sp">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/LabelName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="35sp"
+                        android:layout_marginTop="30sp"
+                        android:layout_marginRight="10sp"
+                        android:text="@string/itemFirstName"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#C6C6C6"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/textViewName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30sp"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#C6C6C6"
+                        android:textSize="18sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/LabelPhone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="35sp"
+                        android:layout_marginRight="10sp"
+                        android:text="@string/phone"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#C6C6C6"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/textViewPhone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#C6C6C6"
+                        android:textSize="18sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/LabelEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="35sp"
+                        android:layout_marginRight="10sp"
+                        android:text="@string/email"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#C6C6C6"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/textViewEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#C6C6C6"
+                        android:textSize="18sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/LabelMeeting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="35sp"
+                        android:layout_marginRight="10sp"
+                        android:text="@string/meetingLocation"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#C6C6C6"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/textViewLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#C6C6C6"
+                        android:textSize="18sp" />
+                </TableRow>
+
+            </TableLayout>
+
+            <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_horizontal">
+                android:layout_marginTop="25sp">
 
-                <Button
-                    android:id="@+id/buttonText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10sp"
-                    android:fontFamily="sans-serif-condensed"
-                    android:gravity="center_horizontal"
-                    android:text="@string/buttonText"
-                    android:textSize="18sp"
-                    android:textStyle="normal" />
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal">
 
-                <Button
-                    android:id="@+id/buttonCall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10sp"
-                    android:fontFamily="sans-serif-condensed"
-                    android:gravity="center_horizontal"
-                    android:text="@string/buttonCall"
-                    android:textSize="18sp"
-                    android:textStyle="normal" />
-            </TableRow>
+                    <Button
+                        android:id="@+id/buttonText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10sp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center_horizontal"
+                        android:text="@string/buttonText"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal">
+                    <Button
+                        android:id="@+id/buttonCall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10sp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center_horizontal"
+                        android:text="@string/buttonCall"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
+                </TableRow>
 
-                <Button
-                    android:id="@+id/buttonEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10sp"
-                    android:fontFamily="sans-serif-condensed"
-                    android:gravity="center_horizontal"
-                    android:text="@string/buttonEmail"
-                    android:textSize="18sp"
-                    android:textStyle="normal" />
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal">
 
-                <Button
-                    android:id="@+id/buttonMap"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10sp"
-                    android:fontFamily="sans-serif-condensed"
-                    android:gravity="center_horizontal"
-                    android:text="@string/buttonMap"
-                    android:textSize="18sp"
-                    android:textStyle="normal" />
-            </TableRow>
+                    <Button
+                        android:id="@+id/buttonEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10sp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center_horizontal"
+                        android:text="@string/buttonEmail"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal" />
+                    <Button
+                        android:id="@+id/buttonMap"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10sp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center_horizontal"
+                        android:text="@string/buttonMap"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
+                </TableRow>
 
-        </TableLayout>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal" />
 
-    </LinearLayout>
+            </TableLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
 
 </RelativeLayout>
