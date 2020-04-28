@@ -32,8 +32,6 @@ public class SellBookActivity extends AppCompatActivity implements View.OnClickL
     private Button submit;
     private CheckBox box;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,14 +52,7 @@ public class SellBookActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
-
-
-
-
-
-
-
-    private void   addItemToSheet() {
+    private void   addItemToSheet() {  // Function submits the approved parameters to the google script which will then be added to the Google Sheet
 
         final ProgressDialog loading = ProgressDialog.show(this, "Adding Item", "Please wait");
         final String itemFname = name.getText().toString().trim();
@@ -73,9 +64,6 @@ public class SellBookActivity extends AppCompatActivity implements View.OnClickL
         final String itemEmail = email.getText().toString().trim();
         final String itemLocation = location.getSelectedItem().toString().trim();
         final String itemCategory = category.getSelectedItem().toString().trim();
-
-
-
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://script.google.com/macros/s/AKfycbwuldO356FmlWv7RJkxZcusSxomUQX_0oFdw6K8bog1q71mFqM_/exec",
                 new Response.Listener<String>() {
@@ -100,7 +88,7 @@ public class SellBookActivity extends AppCompatActivity implements View.OnClickL
             protected Map<String, String> getParams() {
                 Map<String, String> itemParams = new HashMap<>();
 
-                //here we pass params
+                // Here we pass params
                 itemParams.put("action","addItem"); // Tells the script which function to run
                 itemParams.put("fName",itemFname);  // Adds the form's fields as parameters
                 itemParams.put("bookTitle",itemTitle);

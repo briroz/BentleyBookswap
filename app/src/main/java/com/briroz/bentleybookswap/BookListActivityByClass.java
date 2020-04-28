@@ -3,8 +3,14 @@ package com.briroz.bentleybookswap;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -13,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -27,6 +34,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -38,11 +51,38 @@ public class BookListActivityByClass extends AppCompatActivity implements Adapte
     private SimpleAdapter simpleAdapter;
     private ProgressDialog loadingDiag;
     private ArrayList<HashMap<String, String>> list= new ArrayList<>();
+    // File I/O
+    private final String filename = "list.txt";
+    private OutputStreamWriter out;
+    private String listLength;
+    private boolean loaded = false;
+    private String strLine;
+    // Notifications
+    private NotificationManager mNotificationManager;
+    private Notification notifyDetails;
+    private PendingIntent pendingIntent;
+    private static final int SIMPLE_ID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_list_by_class);  // Set activity view
+
+
+        mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);   // Setup notifications
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("default",
+                    "Channel default",
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription("Channel description");
+            channel.setLightColor(Color.GREEN);
+            channel.enableVibration(true);
+            channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+            mNotificationManager.createNotificationChannel(channel);
+        }
+        Intent notifyIntent = new Intent(this, BookListActivityByTitle.class);
+        pendingIntent = PendingIntent.getActivity(this, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
 
         ActionBar actionBar = getSupportActionBar();  // Adds back button to list view
         actionBar.setHomeButtonEnabled(true);
@@ -56,14 +96,14 @@ public class BookListActivityByClass extends AppCompatActivity implements Adapte
     }
 
 
-    private void getItems(final String classCategory) {
+    private void getItems(final String classCategory) {  // Grabs JSON array using the Bookswap Adapter Google Script.
         loadingDiag =  ProgressDialog.show(this,"Loading","Please wait",false,true);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://script.google.com/macros/s/AKfycbwuldO356FmlWv7RJkxZcusSxomUQX_0oFdw6K8bog1q71mFqM_/exec?action=getItems",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        parseResponseItems(response, classCategory);
+                        parseResponseItems(response, classCategory);  // Parse them into arrays for the list
                     }
                 },
 
@@ -136,6 +176,7 @@ public class BookListActivityByClass extends AppCompatActivity implements Adapte
                     }
                 }
             }
+            notifyListSize();  // Write the list size after all JSON objects retrieved.
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -148,6 +189,103 @@ public class BookListActivityByClass extends AppCompatActivity implements Adapte
     }
 
 
+
+    private void notifyListSize() {
+        if (loaded == false) {   // Only writes on the first load.  OnCreate would not work, as there was a delay after getItems required to get the list.size()
+            File file = new File(getApplicationContext().getFilesDir(), "list.txt");
+            if (!file.exists()) {     // Checking if the file exists before opening the inputstream.  If not found, test list objects will be added.
+                Log.d("TAG", "FILE NOT FOUND, starting with testing list objects");
+                Toast.makeText(getApplicationContext(), "First time boot, writing list length to file.", Toast.LENGTH_LONG).show();    // Displays a toast when no text file is found
+                try {
+                    listLength = list.size()+"";
+                    String listLengthString = listLength.toString();
+                    Log.d("TAG", listLength);
+
+                    out = new OutputStreamWriter(openFileOutput(filename, MODE_PRIVATE));   // Writes over entire .txt file each time saved
+                    out.write(listLength);
+                    out.close();    //close output stream
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            } else {   // Only opens the stream if the file was located.
+                Log.d("TAG", "FILE EXISTS");
+                try {
+                    FileInputStream fis = openFileInput("list.txt");
+                    InputStreamReader isr = new InputStreamReader(fis);
+                    BufferedReader br = new BufferedReader(isr);
+                    strLine = br.readLine();
+                    fis.close();
+                } catch (IOException | NullPointerException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    listLength = list.size() + "";
+                    int listInt = list.size();
+                    int loadedListInt = Integer.parseInt(strLine);
+                    if (listInt != loadedListInt) {  // If there is a different number of books compared to the last time loaded.
+                        if (listInt > loadedListInt) {  // If the current list is larger than last time
+                            int difference = (listInt-loadedListInt);  // Compute the difference between the two
+                            //Toast.makeText(getApplicationContext(), "There are "+difference+" more books as last time", Toast.LENGTH_LONG).show();    // Displays a toast when no text file is found
+                            notifyDetails =
+                                    new Notification.Builder(this)
+                                            .setContentIntent(pendingIntent)  //set PendingIntent
+                                            .setChannelId("default")
+                                            .setSmallIcon(R.drawable.bookcover)
+                                            .setContentTitle("More Books")   //set Notification text and icon
+                                            .setContentText("There are "+difference+" more books than the last time visited")
+                                            .setTicker("Change in bookstore")            //set status bar text
+                                            .setWhen(System.currentTimeMillis())    //timestamp when event occurs
+                                            .setAutoCancel(true)     //cancel Notification after clicking on it
+                                            .setVibrate(new long[]{1000, 1000, 1000, 1000})     //set Android to vibrate when notified
+                                            .build();
+                            mNotificationManager.notify(SIMPLE_ID, notifyDetails);
+
+                        } else {  // If the current list is smaller than last time
+                            int difference = (loadedListInt-listInt);
+                            //Toast.makeText(getApplicationContext(), "There are "+difference+" less books loaded compared to the last time", Toast.LENGTH_LONG).show();    // Displays a toast when no text file is found
+                            notifyDetails =
+                                    new Notification.Builder(this)
+                                            .setContentIntent(pendingIntent)  //set PendingIntent
+                                            .setChannelId("default")
+                                            .setSmallIcon(R.drawable.bookcover)
+                                            .setContentTitle("Less Books")   //set Notification text and icon
+                                            .setContentText("There are "+difference+" fewer books than the last time visited")
+                                            .setTicker("Change in bookstore")            //set status bar text
+                                            .setWhen(System.currentTimeMillis())    //timestamp when event occurs
+                                            .setAutoCancel(true)     //cancel Notification after clicking on it
+                                            .setVibrate(new long[]{1000, 1000, 1000, 1000})     //set Android to vibrate when notified
+                                            .build();
+                            mNotificationManager.notify(SIMPLE_ID, notifyDetails);
+                        }
+                    } else {
+                        //Toast.makeText(getApplicationContext(), "Same number as last time", Toast.LENGTH_LONG).show();    // Displays a toast when no text file is found
+                        notifyDetails =
+                                new Notification.Builder(this)
+                                        .setContentIntent(pendingIntent)  //set PendingIntent
+                                        .setChannelId("default")
+                                        .setSmallIcon(R.drawable.bookcover)
+                                        .setContentTitle("Same Books")   //set Notification text and icon
+                                        .setContentText("There are the same number of books as last time")
+                                        .setTicker("No change in bookstore")            //set status bar text
+                                        .setWhen(System.currentTimeMillis())    //timestamp when event occurs
+                                        .setAutoCancel(true)     //cancel Notification after clicking on it
+                                        .setVibrate(new long[]{1000, 1000, 1000, 1000})     //set Android to vibrate when notified
+                                        .build();
+                        mNotificationManager.notify(SIMPLE_ID, notifyDetails);
+
+                    }
+                    out = new OutputStreamWriter(openFileOutput(filename, MODE_PRIVATE));   // Writes over entire .txt file each time saved
+                    out.write(listLength);
+                    out.close();    //close output stream
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            loaded = true;  // Notify further JSON loads not to store shorter, searched list sizes.
+        }
+    }
 
 
     @Override
@@ -170,7 +308,7 @@ public class BookListActivityByClass extends AppCompatActivity implements Adapte
     }
 
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {  // Passes on the book's information to the next Detail activity
         Log.d("TAG", "CLICKED");
         Intent intent = new Intent(this, ListItemDetail.class);
         HashMap<String,String> map =(HashMap)adapterView.getItemAtPosition(i);
@@ -207,7 +345,7 @@ public class BookListActivityByClass extends AppCompatActivity implements Adapte
         intent.putExtra("bookCategory",bookCategory);
 
 
-        startActivity(intent);
+        startActivity(intent);  // Open the detail view
     }
 
     @Override

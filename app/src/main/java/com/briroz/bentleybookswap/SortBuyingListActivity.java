@@ -37,8 +37,6 @@ public class SortBuyingListActivity extends AppCompatActivity implements View.On
         Animation an =  AnimationUtils.loadAnimation(this, R.anim.animation);
         layout.startAnimation(an);
 
-
-
         ActionBar actionBar = getSupportActionBar();  // Adds back button to list view
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);

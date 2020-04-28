@@ -77,7 +77,7 @@ public class ListItemDetail extends AppCompatActivity implements View.OnClickLis
         buttonSMS.setOnClickListener(this);
         imageView.setOnClickListener(this);
         textViewTitle.setOnClickListener(this);   // For speaking the title when clicked
-        textViewAuthor.setOnClickListener(this);  // ^^ Author
+        textViewAuthor.setOnClickListener(this);  // Speaking the author
 
         textViewTitle.setText(bookTitle);
         textViewAuthor.setText(bookAuthor);
@@ -131,10 +131,6 @@ public class ListItemDetail extends AppCompatActivity implements View.OnClickLis
         super.onDestroy();
     }
 
-
-
-
-
     @Override
     public void onClick(View view) {
 
@@ -142,7 +138,7 @@ public class ListItemDetail extends AppCompatActivity implements View.OnClickLis
         switch (itemID) {
             case R.id.buttonCall:
                 if (this.phone.equals("N/A")) {   // If the phone exists, do the intent.  If not toast error.
-                    // Toast
+                    Toast.makeText(getApplicationContext(),"Phone Not Given, Please Use Email", Toast.LENGTH_LONG).show();
                 } else {
                     Log.d("TAG", "CALL  "+phone);
                     // Open Dialer
@@ -159,7 +155,7 @@ public class ListItemDetail extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.buttonText:
                 if (this.phone.equals("N/A")) {
-                    // Toast that Phone # isnt there
+                    Toast.makeText(getApplicationContext(),"Phone Not Given, Please Use Email", Toast.LENGTH_LONG).show();
                 } else {
                     Log.d("TAG", "TEXT  "+ this.phone);
                     // Open SMS with suggested message that includes the book's title.
